@@ -1,11 +1,11 @@
 const express = require('express');
-const app = express();
+const api = express();
 const port = process.env.PORT || 3000;
 
-app.get('/', (req, res) => {
+api.get('/', (req, res) => {
 	res.send(process.env);
 });
 
-app.listen(port, () => {
+api.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
 });
