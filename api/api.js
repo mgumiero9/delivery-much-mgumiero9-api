@@ -1,9 +1,10 @@
 /* globals locals:true */
 
+const env = process.env.NODE_ENV !== 'production' ? require('dotenv').config() : null;
 const createError = require('http-errors');
 const express = require('express');
 const api = express();
-const port = process.env.PORT || 3000;
+const port = process.env.DM_API_PORT || 3000;
 const logger = require('morgan');
 
 api.use(logger('combined'));

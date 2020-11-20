@@ -4,10 +4,18 @@ Description xxxxxxxxxx
 
 ## Installation
 
-Configure your environment variables with the image api key from Giphy:
+Configure your environment variables manually:
+```
+$ export IMAGE_API_KEY=<YOUR-API-KEY>
+$ export DM_API_PORT=<YOUR-PORT-NUMBER>
+```
+
+Or create a file named: .env in the project root with this content:
 
 ```
-$ set imageApiKey = <YOUR-API-KEY>
+NODE_ENV=development
+DM_API_PORT=<YOUR-PORT-NUMBER>
+IMAGE_API_KEY=<YOUR-GIPHY-KEY>
 ```
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
