@@ -18,6 +18,20 @@
 	api.use(logger('combined'));
 	api.use(express.json());
 
+	function getAlphaSorted(txtList) {
+		let arr = [];
+		if (typeof txtList === 'string') {
+			txtList = txtList.replace(/ /g, '');
+			arr = txtList.split(',');
+			arr = arr.sort(function(a, b){
+				if(a < b) { return -1; }
+				if(a > b) { return 1; }
+				return 0;
+			});
+		}
+		return arr;
+	}
+
 	async function buildModel(req, res) {
 		const ingredients = req.params['i'] || ['potato', 'cheese']; // TODO: REMOVE ARRAY MOCKED
 		const model = {
@@ -32,7 +46,7 @@
 				const gif = await image.getImage(_.get(item, 'title'));
 				model.recipes.push({
 					title: item.title,
-					ingredients: item.ingredients,
+					ingredients: getAlphaSorted(item.ingredients),
 					link: item.href,
 					gif: _.get(gif, 'data.data["0"].images.original.url', 'image not available...')
 				});
