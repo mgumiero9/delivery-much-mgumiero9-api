@@ -3,15 +3,13 @@ const encode = require('form-urlencoded').default;
 const host = 'http://www.recipepuppy.com';
 const endpoint = '/api/?';
 
-// http://www.recipepuppy.com/api/?i=onions,garlic&q=omelet&p=3
-
 module.exports = function () {
 
 	this.getRecipes = async function (ingredients) {
 
 		const PAGE_ONE = 1;
 		const options = {
-			i: ingredients.join(','),
+			i: ingredients,
 			p: PAGE_ONE
 		};
 

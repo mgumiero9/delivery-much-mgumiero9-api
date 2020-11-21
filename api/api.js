@@ -32,8 +32,19 @@
 		return arr;
 	}
 
+	function checkInput(req, res) {
+		const ingredients = req.query['i'];
+		if (!(typeof ingredients === 'string' &&
+				ingredients.length > 0 &&
+				ingredients.split(',').length <= 3)) {
+
+			res.send({error: 'bad request'});
+		}
+		return ingredients;
+	}
+
 	async function buildModel(req, res) {
-		const ingredients = req.params['i'] || ['potato', 'cheese']; // TODO: REMOVE ARRAY MOCKED
+		const ingredients = checkInput(req, res);
 		const model = {
 			keywords: ingredients,
 			recipes: []
