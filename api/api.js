@@ -64,7 +64,10 @@
 			}
 			res.send(model);
 		} catch (e) {
-			res.send({error: e});
+			res.send({
+				MESSAGE: 'Source API is unavailable. Please try again later.',
+				error: e
+			});
 		}
 	}
 
