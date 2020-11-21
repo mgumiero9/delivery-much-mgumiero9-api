@@ -7,15 +7,15 @@ Description xxxxxxxxxx
 Configure your environment variables manually:
 ```
 $ export IMAGE_API_KEY=<YOUR-API-KEY>
-$ export DM_API_PORT=<YOUR-PORT-NUMBER>
+$ export DM_API_PORT=<YOUR-PORT-NUMBER> (optional)
 ```
 
-Or create a file named: .env in the project root with this content:
+Or create a file named: **.env** in the project root with this content:
 
 ```
 NODE_ENV=development
-DM_API_PORT=<YOUR-PORT-NUMBER>
 IMAGE_API_KEY=<YOUR-GIPHY-KEY>
+DM_API_PORT=<YOUR-PORT-NUMBER> (optional)
 ```
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
