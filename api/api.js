@@ -1,4 +1,4 @@
-(function buildApi() {
+module.exports.buildApi = () => {
 	'use strict';
 
 	const env = process.env.NODE_ENV !== 'production' ? require('dotenv').config() : null;
@@ -18,7 +18,7 @@
 	api.use(logger('combined'));
 	api.use(express.json());
 
-	function getAlphaSorted(txtList) {
+	api.getAlphaSorted = (txtList) => {
 		let arr = [];
 		if (typeof txtList === 'string') {
 			txtList = txtList.replace(/ /g, '');
@@ -32,47 +32,62 @@
 		return arr;
 	}
 
-	function checkInput(req, res) {
+	api.checkInput = (req, res, next)  => {
 		const ingredients = req.query['i'];
-		if (!(typeof ingredients === 'string' &&
+		try {
+			if (!(typeof ingredients === 'string' &&
 				ingredients.length > 0 &&
 				ingredients.split(',').length <= 3)) {
 
-			res.send({error: 'bad request'});
+				next(createError('Bad Request'));
+			}
+		} catch (e) {
+			next(createError(e));
 		}
 		return ingredients;
 	}
 
-	async function buildModel(req, res) {
-		const ingredients = checkInput(req, res);
-		const model = {
-			keywords: ingredients,
-			recipes: []
-		};
+	function sendError(res, e) {
+		return res
+			.status(e.status || 500)
+			.send({
+				Error: e
+			});
+	}
 
+	api.buildModel = async (req, res, next)  =>  {
 		try {
+			const ingredients = api.checkInput(req, res, next);
+			const model = {
+				keywords: ingredients,
+				recipes: []
+			};
+
 			const response = await recipe.getRecipes(ingredients);
 			const recipes = response && response.data && response.data.results;
 			for (const item of recipes) {
-				const gif = await image.getImage(_.get(item, 'title'));
-				model.recipes.push({
-					title: item.title,
-					ingredients: getAlphaSorted(item.ingredients),
-					link: item.href,
-					gif: _.get(gif, 'data.data["0"].images.original.url', 'image not available...')
-				});
+				try {
+					const gif = await image.getImage(_.get(item, 'title'));
+					model.recipes.push({
+						title: item.title,
+						ingredients: api.getAlphaSorted(item.ingredients),
+						link: item.href,
+						gif: _.get(gif, 'data.data["0"].images.original.url', 'image not available...')
+					});
+				} catch (e) {
+					e.intMsg = 'Image API is unavailable. Please try again later.';
+					return sendError(res, e);
+				}
 			}
-			res.send(model);
+			return res.send(model);
 		} catch (e) {
-			res.send({
-				MESSAGE: 'Source API is unavailable. Please try again later.',
-				error: e
-			});
+			e.intMsg = 'Recipe API is unavailable. Please try again later.';
+			sendError(res, e);
 		}
 	}
 
-	api.get('/recipes', async (req, res) => {
-		await buildModel(req, res);
+	api.get('/recipes', async (req, res, next) => {
+		await api.buildModel(req, res, next);
 	});
 
 // catch 404 and forward to error handler
@@ -97,4 +112,4 @@
 
 	return api;
 
-})();
+};

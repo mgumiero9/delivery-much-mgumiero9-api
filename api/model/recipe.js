@@ -17,10 +17,9 @@ module.exports = function () {
 		const uri = `${host}${endpoint}${params}`;
 
 		try {
-			const response = await axios.get(uri);
-			return Promise.resolve(response);
+			return await axios.get(uri);
 		} catch (error) {
-			return Promise.reject(error);
+			return error;
 		}
 	};
 

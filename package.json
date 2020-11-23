@@ -4,8 +4,8 @@
   "description": "Delivery Much API test",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "nodemon api/api.js"
+    "test": "mocha",
+    "start": "nodemon api/starter.js"
   },
   "author": "Marcelo Gusmão Gumiero",
   "license": "ISC",
