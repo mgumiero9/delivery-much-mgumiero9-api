@@ -1,6 +1,16 @@
-# API test
+# Recipes and Image API (programming test)
 
-Description xxxxxxxxxx
+This test Api project has only 1 endpoint:
+
+```
+http://{HOST}/recipes/?i={ingredient_1},{ingredient_2}
+```
+
+Example:
+```
+http://127.0.0.1/recipes/?i=onion,tomato
+```
+* Use at maximum 3 ingredients!
 
 ## Installation
 
@@ -18,20 +28,36 @@ IMAGE_API_KEY=<YOUR-GIPHY-KEY>
 DM_API_PORT=<YOUR-PORT-NUMBER> (optional)
 ```
 
-Use the package manager [pip](https://pip.pypa.io/en/stable/) to install foobar.
+Use the package manager [npm](https://npmjs.com) to install it.
 
 ```bash
-pip install foobar
+$ npm install
 ```
 
 ## Usage
 
-```python
-import foobar
+Example:
+```
+http://127.0.0.1/recipes/?i=onion,tomato
+```
 
-foobar.pluralize('word') # returns 'words'
-foobar.pluralize('goose') # returns 'geese'
-foobar.singularize('phenomena') # returns 'phenomenon'
+Result:
+```json
+{
+	"keywords": ["onion", "tomato"],
+	"recipes": [{
+		"title": "Greek Omelet with Feta",
+		"ingredients": ["eggs", "feta cheese", "garlic", "red onions", "spinach", "tomato", "water"],
+		"link": "http://www.kraftfoods.com/kf/recipes/greek-omelet-feta-104508.aspx",
+		"gif": "https://media.giphy.com/media/xBRhcST67lI2c/giphy.gif"
+	   },{
+		"title": "Guacamole Dip Recipe",
+		"ingredients": ["avocado", "onions", "tomato"],
+		"link":"http://cookeatshare.com/recipes/guacamole-dip-2783",
+		"gif":"https://media.giphy.com/media/I3eVhMpz8hns4/giphy.gif"
+	   }
+	]
+}
 ```
 
 ## Contributing
