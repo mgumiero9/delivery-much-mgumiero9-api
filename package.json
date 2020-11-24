@@ -2,10 +2,10 @@
   "name": "delivery-much",
   "version": "1.0.0",
   "description": "Delivery Much API test",
-  "main": "index.js",
+  "main": "server.js",
   "scripts": {
     "test": "mocha",
-    "start": "nodemon api/starter.js"
+    "start": "nodemon api/server.js"
   },
   "author": "Marcelo Gusmão Gumiero",
   "license": "ISC",
