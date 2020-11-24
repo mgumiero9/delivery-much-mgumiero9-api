@@ -15,6 +15,8 @@ http://127.0.0.1/recipes/?i=onion,tomato
 ## Installation
 
 Configure your environment variables manually:
+
+(you need to obtain your GIPHY api_key in your [Giphy Developers Dashboard](https://developers.giphy.com/dashboard/))
 ```
 $ export IMAGE_API_KEY=<YOUR-API-KEY>
 $ export DM_API_PORT=<YOUR-PORT-NUMBER> (optional)
@@ -59,6 +61,14 @@ Result:
 	]
 }
 ```
+---------
+
+##Docker
+####Docker Pull Command:
+```
+docker pull mgumiero9/dlmuch-node-api-test-docker
+```
+---------
 
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
